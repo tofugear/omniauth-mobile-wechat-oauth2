@@ -2,15 +2,14 @@ require "omniauth-oauth2"
 
 module OmniAuth
   module Strategies
-    class Wechat < OmniAuth::Strategies::OAuth2
+    class MobileWechat < OmniAuth::Strategies::OAuth2
       # Give your strategy a name.
-      option :name, "wechat"
+      option :name, "mobile_wechat"
 
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
       option :client_options, {
         site:          "https://api.weixin.qq.com",
-        authorize_url: "https://open.weixin.qq.com/connect/qrconnect#wechat_redirect",
         token_url:     "/sns/oauth2/access_token",
         token_method:  :get
       }
@@ -43,9 +42,10 @@ module OmniAuth
       end
 
       def request_phase
-        params = client.auth_code.authorize_params.merge(redirect_uri: callback_url).merge(authorize_params)
-        params["appid"] = params.delete("client_id")
-        redirect client.authorize_url(params)
+        form = OmniAuth::Form.new(:title => "Auth Code", :url => callback_path)
+        form.text_field "Code", "code"
+        form.button "Authorize"
+        form.to_response
       end
 
       def raw_info
@@ -65,7 +65,7 @@ module OmniAuth
           'code' => request.params['code'],
           'grant_type' => 'authorization_code'
           }.merge(token_params.to_hash(symbolize_keys: true))
-        client.get_token(params, deep_symbolize(options.auth_token_params))
+        client.get_token(params) # deep_symbolize(options.auth_token_params))
       end
     end
   end
