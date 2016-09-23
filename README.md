@@ -9,7 +9,7 @@ Forked to handle mobile SDK integration
 ## Installation
 
 ```ruby
-gem "omniauth-wechat-oauth2", git: 'git@github.com:tofugear/omniauth-wechat-oauth2.git'
+gem "omniauth-wechat-mobile-oauth2", git: 'git@github.com:tofugear/omniauth-wechat-mobile-oauth2.git'
 ```
 
 ## Usage
@@ -17,18 +17,18 @@ gem "omniauth-wechat-oauth2", git: 'git@github.com:tofugear/omniauth-wechat-oaut
 Here's an example for adding the middleware to a Rails app in `config/initializers/omniauth.rb`:
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :mobile_wechat, ENV["WECHAT_APP_ID"], ENV["WECHAT_APP_SECRET"]
+  provider :wechat_mobile, ENV["WECHAT_APP_ID"], ENV["WECHAT_APP_SECRET"]
 end
 ```
 
 If you want to specify the callback url:
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :mobile_wechat, ENV["WECHAT_APP_ID"], ENV["WECHAT_APP_SECRET"],
+  provider :wechat_mobile, ENV["WECHAT_APP_ID"], ENV["WECHAT_APP_SECRET"],
     :authorize_params => {:redirect_uri => "http://www.example.com/auth/wechat/callback"}
 end
 ```
-You can now access the OmniAuth Wechat OAuth2 URL: `/auth/mobile_wechat`
+You can now access the OmniAuth Wechat OAuth2 URL: `/auth/wechat_mobile`
 
 ## Credits
 

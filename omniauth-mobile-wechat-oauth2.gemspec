@@ -2,7 +2,7 @@ version = File.read(File.expand_path('../VERSION', __FILE__)).strip
 
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
-  s.name        = 'omniauth-mobile-wechat-oauth2'
+  s.name        = 'omniauth-wechat-mobile-oauth2'
   s.version     = version
   s.summary     = 'Omniauth strategy for open.weixin.qq.com'
   s.description = 'Using OAuth2 to authenticate wechat user when web resources being viewed within wechat(weixin) client.'
